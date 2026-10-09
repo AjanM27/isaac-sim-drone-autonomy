@@ -1,0 +1,89 @@
+services:
+  ardupilot-sitl:
+    image: isaac-flight-control-ardupilot-sitl:local
+    build:
+      context: .
+      dockerfile: ardupilot.Dockerfile
+      args:
+        ARDUPILOT_REF: "${ARDUPILOT_REF:-Copter-4.6.2}"
+    container_name: isaac-ardupilot-sitl
+    network_mode: host
+    working_dir: /ardupilot
+    volumes:
+      - ./isaac_sim_tuned.parm:/workspace/isaac_sim_tuned.parm:ro
+    command:
+      - bash
+      - -lc
+      - >-
+        cd /ardupilot &&
+        /ardupilot/build/sitl/bin/arducopter
+        --model JSON:127.0.0.1
+        --home=-35.363262,149.165237,584,0
+        --serial0=tcp:14550
+        --defaults /workspace/isaac_sim_tuned.parm
+        --wipe
+        --speedup ${SITL_SPEEDUP:-1}
+    restart: unless-stopped
+
+  mavros:
+    image: isaac-flight-control-mavros:local
+    build:
+      context: .
+      dockerfile: mavros.Dockerfile
+    container_name: isaac-mavros
+    depends_on:
+      - ardupilot-sitl
+    network_mode: host
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}"
+      ROS_AUTOMATIC_DISCOVERY_RANGE: SUBNET
+      # The container shares the host network but not /dev/shm.  Fast DDS can
+      # discover host ROS participants and then incorrectly select its private
+      # shared-memory transport, leaving visible topics with no delivered data.
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
+    volumes:
+      - ../..:/workspace:ro
+      - ../../simulation/room_quadcopter/results:/results
+    command:
+      - bash
+      - -lc
+      - >-
+        source /opt/ros/jazzy/setup.bash &&
+        ros2 launch mavros apm.launch
+        fcu_url:=tcp://127.0.0.1:14550
+        gcs_url:=udp://@
+        namespace:=drone_1
+        tgt_system:=1
+    restart: unless-stopped
+
+  rtabmap-slam:
+    build:
+      context: ../..
+      dockerfile: docker/slam/Dockerfile
+    container_name: isaac-rtabmap-slam
+    network_mode: host
+    depends_on:
+      - mavros
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}"
+      ROS_AUTOMATIC_DISCOVERY_RANGE: SUBNET
+      FASTDDS_BUILTIN_TRANSPORTS: UDPv4
+    volumes:
+      - ../..:/workspace:ro
+      - ../../simulation/room_quadcopter/results:/results
+      - ../../simulation/room_quadcopter/results/slam:/maps
+      # Keep runtime SLAM parameters in sync with the checked-out repository.
+      # This avoids a stale cached image silently retaining older ICP rates.
+      - ../slam/isaac_slam/launch/rtabmap_3d.launch.py:/slam_ws/install/share/isaac_slam/launch/rtabmap_3d.launch.py:ro
+    command:
+      - bash
+      - -lc
+      - >-
+        source /opt/ros/jazzy/setup.bash &&
+        source /slam_ws/install/setup.bash &&
+        ros2 launch isaac_slam rtabmap_3d.launch.py
+        voxel_size:=${SLAM_VOXEL_SIZE:-0.15}
+        reset_database:=${SLAM_RESET_DATABASE:-true}
+    restart: unless-stopped

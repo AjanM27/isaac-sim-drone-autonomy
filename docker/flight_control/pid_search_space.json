@@ -1,0 +1,81 @@
+{
+  "precision": 6,
+  "minimum_improvement": 0.015,
+  "maximum_critical_regression": 0.20,
+  "critical_metrics": [
+    "hover_xy_rms_m",
+    "hover_ground_xy_speed_rms_mps",
+    "hover_yaw_peak_to_peak_deg",
+    "hover_z_rms_m",
+    "worst_stop_displacement_m",
+    "worst_z_rise_after_stop_m",
+    "worst_abs_z_displacement_after_stop_m"
+  ],
+  "groups": [
+    {
+      "name": "attitude_rate",
+      "parameters": {
+        "ATC_RAT_RP_P": {"members": ["ATC_RAT_RLL_P", "ATC_RAT_PIT_P"], "minimum": 0.08, "maximum": 0.20, "step": 0.01},
+        "ATC_RAT_RP_I": {"members": ["ATC_RAT_RLL_I", "ATC_RAT_PIT_I"], "minimum": 0.08, "maximum": 0.20, "step": 0.01},
+        "ATC_RAT_RP_D": {"members": ["ATC_RAT_RLL_D", "ATC_RAT_PIT_D"], "minimum": 0.001, "maximum": 0.010, "step": 0.001}
+      }
+    },
+    {
+      "name": "attitude_angle",
+      "parameters": {
+        "ATC_ANG_RP_P": {"members": ["ATC_ANG_RLL_P", "ATC_ANG_PIT_P"], "minimum": 3.0, "maximum": 7.0, "step": 0.25}
+      }
+    },
+    {
+      "name": "braking",
+      "parameters": {
+        "WPNAV_ACCEL": {"minimum": 250.0, "maximum": 500.0, "step": 50.0},
+        "PSC_JERK_XY": {"minimum": 5.0, "maximum": 20.0, "step": 5.0}
+      }
+    },
+    {
+      "name": "horizontal_velocity",
+      "parameters": {
+        "PSC_VELXY_P": {"minimum": 1.7, "maximum": 3.0, "step": 0.1},
+        "PSC_VELXY_I": {"minimum": 0.8, "maximum": 1.2, "step": 0.05},
+        "PSC_VELXY_D": {"minimum": 0.2, "maximum": 0.32, "step": 0.025}
+      }
+    },
+    {
+      "name": "horizontal_velocity_p",
+      "parameters": {
+        "PSC_VELXY_P": {"minimum": 1.7, "maximum": 3.0, "step": 0.1}
+      }
+    },
+    {
+      "name": "horizontal_velocity_id",
+      "parameters": {
+        "PSC_VELXY_I": {"minimum": 0.8, "maximum": 1.2, "step": 0.05},
+        "PSC_VELXY_D": {"minimum": 0.2, "maximum": 0.32, "step": 0.025}
+      }
+    },
+    {
+      "name": "horizontal_position",
+      "parameters": {
+        "PSC_POSXY_P": {"minimum": 0.9, "maximum": 1.1, "step": 0.025}
+      }
+    },
+    {
+      "name": "vertical",
+      "parameters": {
+        "PSC_POSZ_P": {"minimum": 0.8, "maximum": 1.0, "step": 0.025},
+        "PSC_VELZ_P": {"minimum": 3.5, "maximum": 4.5, "step": 0.1},
+        "PSC_ACCZ_P": {"minimum": 0.35, "maximum": 0.5, "step": 0.025},
+        "PSC_ACCZ_I": {"minimum": 0.7, "maximum": 0.9, "step": 0.025},
+        "PSC_ACCZ_D": {"minimum": 0.0, "maximum": 0.01, "step": 0.0025}
+      }
+    },
+    {
+      "name": "yaw",
+      "parameters": {
+        "ATC_RAT_YAW_P": {"minimum": 0.035, "maximum": 0.045, "step": 0.0025},
+        "ATC_RAT_YAW_I": {"minimum": 0.004, "maximum": 0.006, "step": 0.0005}
+      }
+    }
+  ]
+}

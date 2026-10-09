@@ -1,0 +1,141 @@
+FRAME_TYPE	0
+FS_THR_ENABLE   1
+ARSPD_PIN 1
+ARSPD_BUS 2
+BATT_MONITOR    4
+COMPASS_OFS_X   5
+COMPASS_OFS_Y   13
+COMPASS_OFS_Z   -18
+COMPASS_OFS2_X   5
+COMPASS_OFS2_Y   13
+COMPASS_OFS2_Z   -18
+COMPASS_OFS3_X   5
+COMPASS_OFS3_Y   13
+COMPASS_OFS3_Z   -18
+FENCE_RADIUS    150
+RC1_MAX         2000.000000
+RC1_MIN         1000.000000
+RC1_TRIM        1500.000000
+RC2_MAX         2000.000000
+RC2_MIN         1000.000000
+RC2_TRIM        1500.000000
+RC3_MAX         2000.000000
+RC3_MIN         1000.000000
+RC3_TRIM        1500.000000
+RC4_MAX         2000.000000
+RC4_MIN         1000.000000
+RC4_TRIM        1500.000000
+RC5_MAX         2000.000000
+RC5_MIN         1000.000000
+RC5_TRIM        1500.000000
+RC6_MAX         2000.000000
+RC6_MIN         1000.000000
+RC6_TRIM        1500.000000
+RC7_MAX         2000.000000
+RC7_MIN         1000.000000
+RC7_OPTION      7
+RC7_TRIM        1500.000000
+RC8_MAX         2000.000000
+RC8_MIN         1000.000000
+RC8_TRIM        1500.000000
+FLTMODE1        7
+FLTMODE2        9
+FLTMODE3        6
+FLTMODE4        3
+FLTMODE5        5
+FLTMODE6		0
+SIM_BARO_RND    0
+SIM_GPS_NOISE   0
+SIM_GPS_DRIFTALT 0
+SIM_GPS_GLITCH_X 0
+SIM_GPS_GLITCH_Y 0
+SIM_GPS_GLITCH_Z 0
+# Deterministic simulation navigation feedback. Stock SITL injects 100 ms
+# GPS lag at 5 Hz and reports 0.3 m accuracy; that produced 0.1-0.2 m EKF
+# transient errors against Isaac truth during braking.
+SIM_GPS_HZ      20
+SIM_GPS_LAG_MS  0
+SIM_GPS_ACC     0.01
+EK3_VELNE_M_NSE 0.05
+EK3_POSNE_M_NSE 0.10
+# we need small INS_ACC offsets so INS is recognised as being calibrated
+INS_ACCOFFS_X   0.001
+INS_ACCOFFS_Y   0.001
+INS_ACCOFFS_Z   0.001
+INS_ACCSCAL_X   1.001
+INS_ACCSCAL_Y   1.001
+INS_ACCSCAL_Z   1.001
+INS_ACC2OFFS_X 0
+INS_ACC2OFFS_Y 0
+INS_ACC2OFFS_Z 0
+INS_ACC2SCAL_X 1
+INS_ACC2SCAL_Y 1
+INS_ACC2SCAL_Z 1
+INS_ACC3OFFS_X   0.000
+INS_ACC3OFFS_Y   0.000
+INS_ACC3OFFS_Z   0.000
+INS_ACC3SCAL_X   1.000
+INS_ACC3SCAL_Y   1.000
+INS_ACC3SCAL_Z   1.000
+MOT_THST_EXPO   0.65
+MOT_THST_HOVER  0.39
+MOT_BAT_VOLT_MIN 9.6
+MOT_BAT_VOLT_MAX 12.8
+# flightmodes
+# switch 1 Circle
+# switch 2 LAND
+# switch 3 RTL
+# switch 4 Auto
+# switch 5 Loiter
+# switch 6 Stab
+# STABILIZE 	0 !
+# ACRO 			1
+# ALT_HOLD 		2
+# AUTO 			3 !
+# GUIDED 		4
+# LOITER 		5 !
+# RTL 			6 !
+# CIRCLE 		7 !
+# POSITION 		8
+# LAND 			9 !
+
+INS_ENABLE_MASK 1
+INS_USE2 0
+INS_USE3 0
+SCHED_LOOP_RATE 400
+SIM_RATE_HZ 800
+FRAME_CLASS 1
+FRAME_TYPE 1
+WPNAV_ACCEL     500.0000
+WPNAV_JERK 1.0
+PSC_JERK_XY     20.0000
+ATC_ANG_RLL_P   4.411352
+ATC_ANG_PIT_P   4.411352
+ATC_RAT_RLL_P   0.121219
+ATC_RAT_RLL_I   0.106401
+ATC_RAT_RLL_D   0.002318
+ATC_RAT_PIT_P   0.121219
+ATC_RAT_PIT_I   0.106401
+ATC_RAT_PIT_D   0.002318
+ATC_RAT_YAW_P   0.0400
+# Clean-pose ground-truth trials measured +0.928 deg drift at I=0.004 and
+# -0.847 deg at I=0.006 over ~23 simulated seconds.  Interpolated zero-bias
+# value is 0.00505.  Final I=0.005 validation reduced absolute drift to
+# 0.444 deg and yaw standard deviation from 0.459 deg to 0.327 deg.
+ATC_RAT_YAW_I   0.0050
+
+# Intermediate CMA-ES incumbent retained after 35 completed overnight
+# generations on 2026-09-10. This profile is intentionally checkpointed for
+# live evaluation; it has not yet passed every final stress gate.
+PSC_POSZ_P      0.930682
+PSC_ACCZ_P      0.383176
+PSC_ACCZ_I      0.862216
+PSC_ACCZ_D      0.005095
+PSC_VELZ_P      3.929374
+
+# Horizontal-position gain was not changed before the overnight run stopped.
+PSC_POSXY_P     1.0500
+# Horizontal-velocity gains are the generation-33 accepted CMA-ES incumbent.
+PSC_VELXY_P     2.154831
+PSC_VELXY_I     0.922048
+PSC_VELXY_D     0.286144

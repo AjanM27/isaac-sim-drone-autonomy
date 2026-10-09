@@ -1,0 +1,17 @@
+services:
+  ros2:
+    image: ros:jazzy-ros-base
+    container_name: isaac-sim-ros2
+    network_mode: host
+    ipc: host
+    environment:
+      ROS_DISTRO: jazzy
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_fastrtps_cpp}"
+      ROS_AUTOMATIC_DISCOVERY_RANGE: "SUBNET"
+      ROS_STATIC_PEERS: ""
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    command: ["bash", "-lc", "source /opt/ros/jazzy/setup.bash && echo 'ROS 2 Jazzy companion ready' && sleep infinity"]
+    restart: unless-stopped

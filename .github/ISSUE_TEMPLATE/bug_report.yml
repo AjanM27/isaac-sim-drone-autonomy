@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducible simulation, flight, ROS or mapping defect
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Include exact commands and the shortest repeatable sequence.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      description: GPU, driver, Ubuntu, Isaac Sim version, commit, RTF and `scripts/doctor.sh` output.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant logs
+      render: shell

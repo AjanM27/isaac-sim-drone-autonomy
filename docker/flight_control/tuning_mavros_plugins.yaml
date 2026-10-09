@@ -1,0 +1,12 @@
+/**:
+  ros__parameters:
+    # The PID/RL flight harness only uses these interfaces. Loading every
+    # MAVROS plugin for every vehicle creates dozens of unused publishers,
+    # subscriptions and timers and scales poorly beyond a few drones.
+    plugin_allowlist:
+      - command
+      - global_position
+      - home_position
+      - local_position
+      - setpoint_raw
+      - sys_status

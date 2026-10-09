@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<robot name="iris_visual_proxy">
+  <!-- Lightweight RViz representation. Flight physics still come from iris.usd. -->
+  <material name="body_blue"><color rgba="0.08 0.18 0.32 1.0"/></material>
+  <material name="arm_dark"><color rgba="0.12 0.12 0.12 1.0"/></material>
+  <material name="rotor_gray"><color rgba="0.35 0.35 0.35 0.8"/></material>
+  <material name="sensor_orange"><color rgba="0.95 0.35 0.05 1.0"/></material>
+
+  <link name="drone_base">
+    <visual>
+      <geometry><box size="0.30 0.18 0.10"/></geometry>
+      <material name="body_blue"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0.785398"/>
+      <geometry><box size="0.72 0.035 0.025"/></geometry>
+      <material name="arm_dark"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -0.785398"/>
+      <geometry><box size="0.72 0.035 0.025"/></geometry>
+      <material name="arm_dark"/>
+    </visual>
+    <visual>
+      <origin xyz="0.255 0.255 0.025"/>
+      <geometry><cylinder radius="0.115" length="0.012"/></geometry>
+      <material name="rotor_gray"/>
+    </visual>
+    <visual>
+      <origin xyz="0.255 -0.255 0.025"/>
+      <geometry><cylinder radius="0.115" length="0.012"/></geometry>
+      <material name="rotor_gray"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.255 0.255 0.025"/>
+      <geometry><cylinder radius="0.115" length="0.012"/></geometry>
+      <material name="rotor_gray"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.255 -0.255 0.025"/>
+      <geometry><cylinder radius="0.115" length="0.012"/></geometry>
+      <material name="rotor_gray"/>
+    </visual>
+  </link>
+
+  <link name="camera_front_optical_frame">
+    <visual>
+      <geometry><box size="0.05 0.06 0.04"/></geometry>
+      <material name="sensor_orange"/>
+    </visual>
+  </link>
+  <joint name="camera_front_joint" type="fixed">
+    <parent link="drone_base"/><child link="camera_front_optical_frame"/>
+    <origin xyz="0.16 0 0.04"/>
+  </joint>
+
+  <link name="lidar_3d_link">
+    <visual>
+      <!-- Optical origin is above the housing; offset the visible cylinder
+           downward so it rests on the Iris body instead of floating. -->
+      <origin xyz="0 0 -0.03"/>
+      <geometry><cylinder radius="0.043" length="0.058"/></geometry>
+      <material name="sensor_orange"/>
+    </visual>
+  </link>
+  <joint name="lidar_3d_joint" type="fixed">
+    <parent link="drone_base"/><child link="lidar_3d_link"/>
+    <origin xyz="0 0 0.09"/>
+  </joint>
+
+  <link name="imu_link"/>
+  <joint name="imu_joint" type="fixed">
+    <parent link="drone_base"/><child link="imu_link"/>
+  </joint>
+
+  <link name="tof_down_link"/>
+  <joint name="tof_joint" type="fixed">
+    <parent link="drone_base"/><child link="tof_down_link"/>
+    <origin xyz="0 0 -0.05"/>
+  </joint>
+
+  <link name="tof_up_link"/>
+  <joint name="tof_up_joint" type="fixed">
+    <parent link="drone_base"/><child link="tof_up_link"/>
+    <origin xyz="0 0 0.12"/>
+  </joint>
+</robot>

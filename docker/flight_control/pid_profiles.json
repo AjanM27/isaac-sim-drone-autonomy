@@ -1,0 +1,215 @@
+{
+  "baseline": {
+    "description": "Known-safe starting point from isaac_sim_tuned.parm",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.5,
+      "PSC_VELZ_P": 3.0,
+      "PSC_ACCZ_P": 0.25,
+      "PSC_ACCZ_I": 0.5,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "z_damped": {
+    "description": "Adds vertical acceleration damping to reduce post-braking climb",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.5,
+      "PSC_VELZ_P": 3.0,
+      "PSC_ACCZ_P": 0.25,
+      "PSC_ACCZ_I": 0.5,
+      "PSC_ACCZ_D": 0.005
+    }
+  },
+  "z_response": {
+    "description": "Moderately faster altitude loop; evaluates takeoff settling and stop rebound",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.7,
+      "PSC_VELZ_P": 3.5,
+      "PSC_ACCZ_P": 0.3,
+      "PSC_ACCZ_I": 0.6,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "z_tight": {
+    "description": "Faster altitude recovery candidate for residual sag and stop rebound",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0,
+      "ATC_RAT_YAW_P": 0.04,
+      "ATC_RAT_YAW_I": 0.005
+    }
+  },
+  "checkpoint1_xy_damping": {
+    "description": "Systematic candidate: z_tight with 20% more horizontal velocity D damping",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.3,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0,
+      "ATC_RAT_YAW_P": 0.04,
+      "ATC_RAT_YAW_I": 0.005
+    }
+  },
+  "checkpoint1_xy_response": {
+    "description": "Systematic candidate: z_tight with 5% more horizontal velocity P response",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.1,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0,
+      "ATC_RAT_YAW_P": 0.04,
+      "ATC_RAT_YAW_I": 0.005
+    }
+  },
+  "checkpoint1_final": {
+    "description": "Validated low-latency profile: sub-0.10 m hover envelope with bounded 0.7 m/s braking",
+    "parameters": {
+      "PSC_POSXY_P": 1.05,
+      "PSC_VELXY_P": 2.2,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_JERK_XY": 20.0,
+      "WPNAV_ACCEL": 500.0,
+      "SIM_GPS_HZ": 20,
+      "SIM_GPS_LAG_MS": 0,
+      "SIM_GPS_ACC": 0.01,
+      "EK3_VELNE_M_NSE": 0.05,
+      "EK3_POSNE_M_NSE": 0.1,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0,
+      "ATC_RAT_YAW_P": 0.04,
+      "ATC_RAT_YAW_I": 0.005
+    }
+  },
+  "fine_xy_pos": {
+    "description": "Rejected trial: z_tight with a 5% horizontal position P increase",
+    "parameters": {
+      "PSC_POSXY_P": 1.05,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "fine_xy_i": {
+    "description": "Rejected trial: z_tight with a 5% horizontal velocity I increase",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.05,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "fine_z_pos": {
+    "description": "Rejected trial: z_tight with a 5.6% vertical position P increase",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.95,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "fine_xy_pos_low": {
+    "description": "Rejected trial: z_tight with a 5% horizontal position P decrease",
+    "parameters": {
+      "PSC_POSXY_P": 0.95,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "fine_z_pos_low": {
+    "description": "Rejected trial: z_tight with a 5.6% vertical position P decrease",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.85,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  },
+  "fine_yaw_p": {
+    "description": "Rejected trial: z_tight with a 12.5% yaw-rate P increase",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.0,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0,
+      "ATC_RAT_YAW_P": 0.045,
+      "ATC_RAT_YAW_I": 0.005
+    }
+  },
+  "xy_integral": {
+    "description": "Tight Z profile plus a small XY integral increase for long-hover drift",
+    "parameters": {
+      "PSC_POSXY_P": 1.0,
+      "PSC_VELXY_P": 2.0,
+      "PSC_VELXY_I": 1.2,
+      "PSC_VELXY_D": 0.25,
+      "PSC_POSZ_P": 0.9,
+      "PSC_VELZ_P": 4.0,
+      "PSC_ACCZ_P": 0.4,
+      "PSC_ACCZ_I": 0.8,
+      "PSC_ACCZ_D": 0.0
+    }
+  }
+}

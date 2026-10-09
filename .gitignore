@@ -1,0 +1,31 @@
+humble_ws/build
+humble_ws/install
+humble_ws/log
+jazzy_ws/build
+jazzy_ws/install
+jazzy_ws/log
+build_ws/jazzy
+build_ws/humble
+.vscode/
+**/.*.pyc
+__pycache__/
+
+# Local runtime state and generated simulation output
+.omc/
+**/.omc/
+**/__pycache__/
+**/*.pyc
+simulation/room_quadcopter/stages/*.usd
+simulation/room_quadcopter/stages/*.usda
+simulation/room_quadcopter/stages/*.usdc
+simulation/room_quadcopter/results/
+**/*.log
+
+# Machine-local setup state and downloaded third-party simulator assets
+.venv/
+.isaac-sim-eula-accepted
+simulation/room_quadcopter/assets/isaac/
+simulation/room_quadcopter/assets/materials/
+simulation/room_quadcopter/assets/simple_warehouse/
+simulation/room_quadcopter/Props/
+crash_*.txt
