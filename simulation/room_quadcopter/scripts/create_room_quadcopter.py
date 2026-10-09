@@ -8,7 +8,6 @@ import json
 import os
 import socket
 import struct
-import subprocess
 import threading
 import time
 import traceback
@@ -1010,9 +1009,8 @@ class ArduPilotJsonPhysicsBridge(PropellerAltitudeController):
             return tuple(components)
 
     def _state_payload(self, position, orientation, velocity, gyro, acceleration) -> bytes:
-        # The first milestone keeps the vehicle level, but sends the required
-        # NED state fields. Quaternion support can replace this Euler fallback
-        # once attitude mixing is enabled.
+        # Send the full measured NED pose and FRD-frame IMU state expected by
+        # ArduPilot's JSON backend.
         state = {
             # JSON SITL requires a strictly increasing physics timestamp.
             # Advance it by the rate requested in each PWM output packet.
@@ -1092,7 +1090,6 @@ class ArduPilotJsonPhysicsBridge(PropellerAltitudeController):
 
     def update(self, sim_time: float) -> None:
         from carb import Float3
-        from pxr import Gf
         import numpy as np
 
         self._receive_motor_outputs()
@@ -1310,7 +1307,6 @@ class ArduPilotJsonPhysicsBridge(PropellerAltitudeController):
                 acceleration_body,
             )
             self._latest_state_payload_tail = self._state_payload_tail(*self._latest_state)
-            latest_state = self._latest_state
         if self._last_frame is not None and self._last_log_time < 0.0:
             print("ArduPilot SITL connected; Isaac is applying its PWM motor outputs", flush=True)
             self._last_log_time = sim_time

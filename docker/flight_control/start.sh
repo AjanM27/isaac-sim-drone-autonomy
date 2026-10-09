@@ -10,6 +10,7 @@ required_images=(
   flight_control-rtabmap-slam:latest
 )
 missing_images=()
+mkdir -p "${ROOT}/simulation/room_quadcopter/results/slam"
 for image in "${required_images[@]}"; do
   if ! docker image inspect "${image}" >/dev/null 2>&1; then
     missing_images+=("${image}")

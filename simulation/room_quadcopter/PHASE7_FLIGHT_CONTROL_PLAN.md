@@ -1,4 +1,4 @@
-# Phase 7: Flight-control integration plan
+# Phase 7: Flight-control integration record
 
 ## Architecture
 
@@ -17,12 +17,12 @@ mission commands, telemetry, mapping, planning, and later swarm coordination.
 No custom flight controller should be added while ArduPilot provides this
 behavior.
 
-## Current milestone
+## Implemented milestone
 
-The reproducible stack is Isaac Sim 6.0.1-rc.7, the custom
-the project-local `assets/iris/iris.usd`, ArduPilot Copter 4.6.2 SITL, and MAVROS 2
-on ROS 2 Jazzy. Host networking exposes JSON physics on UDP 9002 and MAVLink
-to ROS 2. The vehicle namespace is `/drone_1`.
+The reproducible stack targets Isaac Sim 6.0, the project-local
+`assets/iris/iris.usd`, ArduPilot Copter 4.6.2 SITL, and MAVROS 2 on ROS 2
+Jazzy. Host networking exposes JSON physics on UDP 9002 and MAVLink to ROS 2.
+The vehicle namespace is `/drone_1`.
 
 The first gate passes when Isaac prints:
 
@@ -36,10 +36,14 @@ propellers, and Isaac returns simulated state.
 ## Run order
 
 ```bash
-bash docker/flight_control/start.sh
-bash simulation/room_quadcopter/run_room.sh --flight-control ardupilot
+./simulation/room_quadcopter/run_room_ardupilot.sh
 bash docker/flight_control/test_flight_control.sh
 ```
+
+The first command starts the companion containers before opening Isaac Sim.
+The explicit two-step form remains available for debugging with
+`docker/flight_control/start.sh` followed by `run_room.sh --flight-control
+ardupilot`.
 
 Primary MAVROS paths are `/drone_1/state`, `/drone_1/extended_state`,
 `/drone_1/local_position/pose`, `/drone_1/local_position/velocity_local`,
@@ -48,7 +52,7 @@ Primary MAVROS paths are `/drone_1/state`, `/drone_1/extended_state`,
 Isaac sensor paths remain `/camera/front/image_raw`, `/lidar/points`,
 `/imu/data`, `/range/down`, `/range/up`, `/tf`, and `/tf_static`.
 
-## Gates
+## Validation gates
 
 ### 1. Transport health
 
@@ -72,10 +76,10 @@ test is stable. A visual hover caused by scripted force does not count.
 
 ### 4. State estimation
 
-Replace the adapter's placeholder gyro and velocity values with measured
-rigid-body angular and linear velocities. Compute body-frame specific force,
-verify NED/ENU conversion against TF, and compare the ArduPilot rangefinder with
-`/range/down`.
+The adapter now reads PhysX rigid-body linear/angular velocity, computes
+body-frame gyro and specific force, and converts Isaac's Z-up world frame to
+ArduPilot NED/FRD. Continue validating those conversions against TF and compare
+the ArduPilot rangefinder with `/range/down` after dynamics changes.
 
 ### 5. Position and missions
 
@@ -102,10 +106,11 @@ arming checks, and frame conventions on a restrained vehicle before flight.
 ## Known limitations
 
 - PWM-to-thrust is a starting calibration, not a validated aerodynamic model.
-- JSON state still uses conservative gyro/velocity placeholders; Gate 4 must
-  replace them with measured values.
-- Downward range is suitable for a flat-floor milestone; add obstacle-aware
-  ray measurement before uneven-terrain tests.
+- The ArduPilot JSON `rng_1` value is derived from local vertical displacement;
+  ROS `/range/down` and `/range/up` use scene raycasts. Uneven-terrain control
+  should consume a raycast range source through the flight controller.
+- The simulated IMU is derived from ideal PhysX state with filtering and
+  clipping, not a calibrated noise/bias model of the physical sensors.
 - ArduPilot parameters require tuning for this vehicle's mass, inertia, thrust,
   and rotor geometry.
 - Arm/takeoff tests are valid only while Isaac is running; a stopped simulator

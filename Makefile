@@ -13,6 +13,7 @@ test:
 lint:
 	bash -n $$(find scripts docker simulation/room_quadcopter -type f -name '*.sh' -print)
 	$(PYTHON) -m compileall -q scripts docker/flight_control docker/slam/isaac_slam simulation/room_quadcopter/scripts
+	$(PYTHON) -m ruff check --select F scripts docker/flight_control docker/slam/isaac_slam simulation/room_quadcopter/scripts
 	git diff --check
 
 check: lint test

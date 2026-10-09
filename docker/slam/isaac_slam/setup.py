@@ -15,10 +15,10 @@ setup(
     ],
     install_requires=["setuptools"],
     zip_safe=True,
-    maintainer="ajanm27",
-    maintainer_email="ajanm27@example.com",
+    maintainer="AjanM27",
+    maintainer_email="AjanM27@users.noreply.github.com",
     description="RTAB-Map 3D LiDAR SLAM integration for Isaac Sim.",
-    license="MIT",
+    license="Apache-2.0",
     entry_points={
         "console_scripts": [
             "slam_health_check = isaac_slam.health_check:main",

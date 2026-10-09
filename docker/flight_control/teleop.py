@@ -358,7 +358,7 @@ class Teleop(Node):
         request.command = 400  # MAV_CMD_COMPONENT_ARM_DISARM
         request.param1 = 0.0
         request.param2 = 21196.0
-        future = self.command.call_async(request)
+        self.command.call_async(request)
         deadline = time.monotonic() + 5.0
         while rclpy.ok() and self.state.armed and time.monotonic() < deadline:
             self.spin_once(timeout_sec=0.1)
@@ -410,7 +410,7 @@ class Teleop(Node):
                 print("Vehicle is on ground but still armed; requesting disarm...")
                 disarm = CommandBool.Request()
                 disarm.value = False
-                disarm_future = self.arm.call_async(disarm)
+                self.arm.call_async(disarm)
                 disarm_deadline = time.monotonic() + 5.0
                 while (
                     rclpy.ok()

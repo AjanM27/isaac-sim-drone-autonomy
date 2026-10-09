@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+.codebase-memory
+**/__pycache__
+**/*.pyc
+simulation/room_quadcopter/assets
+simulation/room_quadcopter/results
+simulation/room_quadcopter/stages
+crash_*.txt
+*.log

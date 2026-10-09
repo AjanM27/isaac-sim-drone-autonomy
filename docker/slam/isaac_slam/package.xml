@@ -3,8 +3,8 @@
   <name>isaac_slam</name>
   <version>0.1.0</version>
   <description>RTAB-Map 3D LiDAR SLAM integration for the Isaac Sim Iris drone.</description>
-  <maintainer email="ajanm27@example.com">ajanm27</maintainer>
-  <license>MIT</license>
+  <maintainer email="AjanM27@users.noreply.github.com">AjanM27</maintainer>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_python</buildtool_depend>
   <exec_depend>launch</exec_depend>

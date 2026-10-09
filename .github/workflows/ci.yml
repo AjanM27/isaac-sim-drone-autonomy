@@ -29,6 +29,8 @@ jobs:
         run: shellcheck -S warning scripts/*.sh docker/flight_control/*.sh docker/ros2/*.sh docker/slam/*.sh simulation/room_quadcopter/*.sh
       - name: Compile Python
         run: python -m compileall -q scripts docker/flight_control docker/slam/isaac_slam simulation/room_quadcopter/scripts
+      - name: Check Python errors
+        run: python -m ruff check --select F scripts docker/flight_control docker/slam/isaac_slam simulation/room_quadcopter/scripts
       - name: Validate asset manifest
         run: python scripts/validate_repository.py
       - name: Unit tests

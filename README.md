@@ -200,7 +200,8 @@ docs/                  Installation, architecture, use and troubleshooting
 
 ## Reproducibility and safety
 
-- Container bases and ArduPilot are version-pinned.
+- The Ubuntu/ROS base release, ArduPilot release and Isaac Sim package are
+  pinned; upstream apt and pip patch packages are resolved during first setup.
 - Downloaded assets are SHA-256 verified against the versioned manifest.
 - Isaac Sim uses a dedicated virtual environment and never modifies the
   system Python environment.
@@ -217,6 +218,8 @@ docs/                  Installation, architecture, use and troubleshooting
 - [System architecture and data flow](docs/ARCHITECTURE.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Contributing](CONTRIBUTING.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Security policy](SECURITY.md)
 - [Third-party software and assets](THIRD_PARTY_NOTICES.md)
 
 ## License and attribution
